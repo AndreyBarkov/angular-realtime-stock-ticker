@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { WidgetListComponent } from './components/widget-list/widget-list.component';
+import { StockServiceService } from './services/stock-service.service';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { WidgetListComponent } from './components/widget-list/widget-list.compon
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [StockServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
