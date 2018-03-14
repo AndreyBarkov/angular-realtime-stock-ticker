@@ -48,18 +48,25 @@ export class StockService {
 
  async addNewWidget(symbol: string) {
     this.clearErrors();
-    const resp = await fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`);
-    if (resp.ok === true) {
-      const newWidget = {symbol: symbol, data: {}};
-      this.widgets.push(newWidget);
-      if ( this.widgets.length > 0 && !this.updatingWidgets) {
-        this.SetWidgetUpdate(true);
+    
+    if (!this.widgetExists(symbol)) {
+      const resp = await fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`);
+      if (resp.ok === true) {
+        const newWidget = {symbol: symbol, data: {}};
+        this.widgets.push(newWidget);
+
+        // run the widget update loop if it's not running and there is at least one widget
+        if ( this.widgets.length > 0 && !this.updatingWidgets) {
+          this.SetWidgetUpdate(true);
+        }
+
+      } else {
+        this.logError(`Failed to find ${symbol} in list of stocks`);
       }
     } else {
-      this.logError(`Failed to find ${symbol} in list of stocks`);
+      this.logError(`Widget for ${symbol} already exists`);
     }
   }
-
   removeWidget(widget: Widget) {
     const index: number = this.widgets.indexOf(widget);
     if (index !== -1) {
