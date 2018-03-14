@@ -1,3 +1,6 @@
-<p>
-  stock-detail works!
-</p>
+<div  *ngIf = "widget">
+  <p>Symbol: {{widget.symbol | uppercase}}</p>
+  <p>High price: {{widget.data.high}}</p>
+  <p>Last Updated {{widget.data.label}}</p>
+  <a routerLink='/widgets'>Back</a>
+</div>

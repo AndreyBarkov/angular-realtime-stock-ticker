@@ -16,21 +16,15 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.Initialize();
-    setInterval( () => this.updateWidgets(), 1000);
-    this.stockService.addNewWidget('aapl');
+    // setInterval( () => this.updateWidgets(), 1000);
+   // this.stockService.addNewWidget('aapl');
    // this.stockService.addNewWidget('tsla');
   }
   Initialize() {
     this.stockService.getWidgets().subscribe(widgets => this.widgets = widgets);
     this.stockService.getErrors().subscribe(errors => this.errors = errors);
   }
-  updateWidgets() {
-    this.stockService.updateWidgetsData();
-    if (this.widgets.length > 0) {
-        this.NumOfWidgets = this.widgets.length;
-    }
-  }
-  addWidget(symbol: string): void {
+   addWidget(symbol: string): void {
      this.stockService.addNewWidget(symbol);
   }
   removeWidget(widget: Widget): void {

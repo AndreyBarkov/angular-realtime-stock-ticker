@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Widget} from '../../models/widget';
+import { CompanyDetails } from '../../models/company-details';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -9,21 +10,40 @@ import { catchError, map, tap, mergeMap } from 'rxjs/operators';
 export class StockService {
   widgets: Widget[] = [];
   errors: string[] = [];
+  updatingWidgets = false;
+  updateInterval: any;
   constructor(private http: HttpClient) { }
 
   fetchWidgetData(symbol: string): Observable<Widget> {
-    const widgetUrl = `https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`;
-    return this.http.get<Widget>(widgetUrl)
+    const url = `https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`;
+    return this.http.get<Widget>(url)
+      .pipe(
+        catchError(this.handleError('fetchWidgetData', null))
+      );
+  }
+  fetchCompanyData(symbol: string): Observable<CompanyDetails> {
+    const url  = `https://api.iextrading.com/1.0/stock/${symbol}/company`;
+    return this.http.get<CompanyDetails>(url)
       .pipe(
         catchError(this.handleError('fetchWidgetData', null))
       );
   }
 
   updateWidgetsData() {
-    console.log('updating....');
+    console.log('updating...');
     this.widgets.forEach( (widget) =>
       this.fetchWidgetData(widget.symbol).subscribe(item => widget.data = item.data[Object.keys(item.data).length - 1])
     );
+  }
+
+  SetWidgetUpdate (flag: boolean): void {
+    if (flag) {
+      this.updateInterval = setInterval( () => this.updateWidgetsData(), 1000);
+      this.updatingWidgets = true;
+    } else {
+      clearInterval(this.updateInterval);
+      this.updatingWidgets = false;
+    }
   }
 
  async addNewWidget(symbol: string) {
@@ -32,14 +52,21 @@ export class StockService {
     if (resp.ok === true) {
       const newWidget = {symbol: symbol, data: {}};
       this.widgets.push(newWidget);
+      if ( this.widgets.length > 0 && !this.updatingWidgets) {
+        this.SetWidgetUpdate(true);
+      }
     } else {
       this.logError(`Failed to find ${symbol} in list of stocks`);
     }
   }
+
   removeWidget(widget: Widget) {
     const index: number = this.widgets.indexOf(widget);
     if (index !== -1) {
       this.widgets.splice(index, 1);
+    }
+    if ( this.widgets.length < 1 && this.updatingWidgets) {
+      this.SetWidgetUpdate(false);
     }
   }
 
@@ -47,6 +74,18 @@ export class StockService {
     return of(this.widgets);
   }
 
+  getWidgetBySymbol(symbol: string): Observable<Widget> {
+    const widget = this.widgets.filter(item => item.symbol === symbol);
+    return of(widget[0]);
+  }
+
+  widgetExists(symbol): boolean {
+    if (this.getWidgetBySymbol(symbol).value == null) {
+       return false;
+    } else {
+       return true;
+    }
+  }
   getErrors(): Observable<string[]> {
     return of(this.errors);
   }
@@ -68,6 +107,5 @@ export class StockService {
   }
 }
 
-// remove widgets from array
-// stock detail component
-// routing to stock details
+
+//check for duplicates

@@ -11,5 +11,6 @@
   <p>Symbol: {{widget.symbol | uppercase}}</p>
   <p>High price: {{widget.data.high}}</p>
   <p>Last Updated {{widget.data.label}}</p>
+  <a routerLink="/stock/{{widget.symbol}}">Details</a>
   <a (click) = "removeWidget(widget);">Remove</a>
 </div>
