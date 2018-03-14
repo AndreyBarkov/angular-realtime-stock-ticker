@@ -5,7 +5,7 @@ import {StockService} from '../../services/stock-service/stock.service';
 @Component({
   selector: 'app-widget-list',
   templateUrl: './widget-list.component.html',
-  styleUrls: ['./widget-list.component.css']
+  styleUrls: ['./widget-list.component.scss']
 })
 export class WidgetListComponent implements OnInit {
   widgets: Widget[] = [];
@@ -18,7 +18,7 @@ export class WidgetListComponent implements OnInit {
     this.Initialize();
     // setInterval( () => this.updateWidgets(), 1000);
    // this.stockService.addNewWidget('aapl');
-   // this.stockService.addNewWidget('tsla');
+    this.stockService.addNewWidget('tsla');
   }
   Initialize() {
     this.stockService.getWidgets().subscribe(widgets => this.widgets = widgets);

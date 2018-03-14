@@ -1,0 +1,32 @@
+.widget {
+    margin-left:10%;
+    border:1px solid;
+}
+.info {
+    border-right: 1px solid;
+    max-width:400px;
+    padding:20px;
+
+    ul {
+        list-style:none;
+        text-align:left;
+        padding-left:0;
+    }
+    li {
+       padding:10px;
+        
+    }
+    .name {
+        font-size:15pt;
+        font-weight: bold;
+    }
+    .ceo {
+        font-style:italic;
+    }
+    .description {
+        border-top:1px solid;
+        border-bottom:1px solid;
+        
+        
+    }
+}

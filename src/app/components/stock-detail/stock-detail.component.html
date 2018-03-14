@@ -1,6 +1,28 @@
 <div  *ngIf = "widget">
-  <p>Symbol: {{widget.symbol | uppercase}}</p>
+  <div class="widget">
+    <div class="info col-md-3">
+      <ul>
+        <li class="name">{{info.companyName}} ({{widget.symbol | uppercase}})</li>
+        <li class="ceo">CEO: {{info.CEO}}</li>
+        <li class=""><a href="{{info.website}}" target="_blank">{{info.website}}</a></li>
+        <li class="description">{{info.description}}</li>
+        <li class="exchange">{{info.exchange}}:</li>
+        <li class="sector">Sector: {{info.sector}}</li>
+      </ul>
+    </div>
+    <div class="graph">
+
+    </div>
+    <div class="trade-data">
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
   <p>High price: {{widget.data.high}}</p>
   <p>Last Updated {{widget.data.label}}</p>
   <a routerLink='/widgets'>Back</a>
-</div>

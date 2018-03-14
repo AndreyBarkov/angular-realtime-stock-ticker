@@ -8,7 +8,7 @@ import { Widget } from '../../models/widget';
 @Component({
   selector: 'app-stock-detail',
   templateUrl: './stock-detail.component.html',
-  styleUrls: ['./stock-detail.component.css']
+  styleUrls: ['./stock-detail.component.scss']
 })
 export class StockDetailComponent implements OnInit {
   private info: CompanyDetails;

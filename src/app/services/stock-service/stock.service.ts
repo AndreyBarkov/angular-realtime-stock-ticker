@@ -86,6 +86,7 @@ export class StockService {
   }
 
   widgetExists(symbol): boolean {
+    // @ts-ignore
     if (this.getWidgetBySymbol(symbol).value == null) {
        return false;
     } else {

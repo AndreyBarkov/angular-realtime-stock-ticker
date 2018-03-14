@@ -1,16 +1,17 @@
 <input #newWidget type="text" 
         (keyup.enter) = "addWidget(newWidget.value); newWidget.value=''"
          />
-<button (click)="addWidget(newWidget.value); newWidget.value=''">Add</button>
+<button class="addButton" (click)="addWidget(newWidget.value); newWidget.value=''">Add</button>
 <p *ngFor="let error of errors">{{error}}</p>
-<div *ngIf = "widgets">
-  <p> Number of widgets: {{NumOfWidgets}}</p>
-</div>
-<div *ngFor="let widget of widgets">
-  <hr/>
-  <p>Symbol: {{widget.symbol | uppercase}}</p>
-  <p>High price: {{widget.data.high}}</p>
-  <p>Last Updated {{widget.data.label}}</p>
-  <a routerLink="/stock/{{widget.symbol}}">Details</a>
-  <a (click) = "removeWidget(widget);">Remove</a>
+
+<div class="widget-list">
+  <div class="widget" *ngFor="let widget of widgets">
+      <button class="remove" (click) = "removeWidget(widget);">x</button>
+    <p class="symbol">{{widget.symbol | uppercase}}</p>
+    <p class="currentPrice">${{widget.data.average}} </p>
+    <p class="time">real-time data as of {{widget.data.label}}</p>
+    <p class="miscData">High: {{widget.data.high}}</p>
+    <p class="miscData">Low: {{widget.data.low}}</p>
+    <button class="details" routerLink="/stock/{{widget.symbol}}">DETAILS</button>
+  </div>
 </div>
