@@ -48,7 +48,6 @@ export class StockService {
 
  async addNewWidget(symbol: string) {
     this.clearErrors();
-    
     if (!this.widgetExists(symbol)) {
       const resp = await fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`);
       if (resp.ok === true) {
@@ -115,4 +114,4 @@ export class StockService {
 }
 
 
-//check for duplicates
+
