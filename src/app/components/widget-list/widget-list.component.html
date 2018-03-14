@@ -1,3 +1,15 @@
-<p>
-  widget-list works!
-</p>
+<input #newWidget type="text" 
+        (keyup.enter) = "addWidget(newWidget.value); newWidget.value=''"
+         />
+<button (click)="addWidget(newWidget.value); newWidget.value=''">Add</button>
+<p *ngFor="let error of errors">{{error}}</p>
+<div *ngIf = "widgets">
+  <p> Number of widgets: {{NumOfWidgets}}</p>
+</div>
+<div *ngFor="let widget of widgets">
+  <hr/>
+  <p>Symbol: {{widget.symbol | uppercase}}</p>
+  <p>High price: {{widget.data.high}}</p>
+  <p>Last Updated {{widget.data.label}}</p>
+  <a (click) = "removeWidget(widget);">Remove</a>
+</div>

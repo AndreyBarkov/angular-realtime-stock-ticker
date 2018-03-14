@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Widget} from '../../models/widget';
+import {StockService} from '../../services/stock-service/stock.service';
 
 @Component({
   selector: 'app-widget-list',
@@ -6,10 +8,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-list.component.css']
 })
 export class WidgetListComponent implements OnInit {
+  widgets: Widget[] = [];
+  errors: string[] = [];
+  NumOfWidgets = 0;
 
-  constructor() { }
+  constructor(private stockService: StockService) { }
 
   ngOnInit() {
+    this.Initialize();
+    setInterval( () => this.updateWidgets(), 1000);
+    this.stockService.addNewWidget('aapl');
+   // this.stockService.addNewWidget('tsla');
   }
-
+  Initialize() {
+    this.stockService.getWidgets().subscribe(widgets => this.widgets = widgets);
+    this.stockService.getErrors().subscribe(errors => this.errors = errors);
+  }
+  updateWidgets() {
+    this.stockService.updateWidgetsData();
+    if (this.widgets.length > 0) {
+        this.NumOfWidgets = this.widgets.length;
+    }
+  }
+  addWidget(symbol: string): void {
+     this.stockService.addNewWidget(symbol);
+  }
+  removeWidget(widget: Widget): void {
+    this.stockService.removeWidget(widget);
+  }
+  clearErrors(): void {
+    this.stockService.clearErrors();
+  }
 }
+
+
