@@ -47,13 +47,14 @@ export class StockService {
   }
 
  async addNewWidget(symbol: string) {
+   symbol = symbol.toUpperCase();
     this.clearErrors();
     if (!this.widgetExists(symbol)) {
       const resp = await fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/dynamic`);
       if (resp.ok === true) {
         const newWidget = {symbol: symbol, data: {}};
         this.widgets.push(newWidget);
-
+        console.log(symbol + ' Added');
         // run the widget update loop if it's not running and there is at least one widget
         if ( this.widgets.length > 0 && !this.updatingWidgets) {
           this.SetWidgetUpdate(true);
@@ -63,7 +64,7 @@ export class StockService {
         this.logError(`Failed to find ${symbol} in list of stocks`);
       }
     } else {
-      this.logError(`Widget for ${symbol} already exists`);
+      this.logError(`Widget for ${symbol.toUpperCase()} stock already exists`);
     }
   }
   removeWidget(widget: Widget) {
@@ -82,14 +83,26 @@ export class StockService {
 
   getWidgetBySymbol(symbol: string): Observable<Widget> {
     const widget = this.widgets.filter(item => item.symbol === symbol);
-    return of(widget[0]);
+   // const temp: Widget = {symbol: symbol, data: { }};
+  //  const widget = this.widgets.indexOf(temp);
+  console.log(this.widgets);
+  const obj = this.widgets.find((item) => item.symbol === symbol);
+  console.log('obj: ');
+  console.log(obj);
+  return of(widget[0]);
+  }
+  getFirstWidget(): Observable<Widget> {
+    return of(this.widgets[0]);
   }
 
   widgetExists(symbol): boolean {
-    // @ts-ignore
-    if (this.getWidgetBySymbol(symbol).value == null) {
+    let temp: Widget;
+    this.getWidgetBySymbol(symbol).subscribe(widget => temp = widget);
+    if (temp == null) {
+      console.log('doesnt exist');
        return false;
     } else {
+      console.log('does exist');
        return true;
     }
   }
@@ -97,7 +110,7 @@ export class StockService {
     return of(this.errors);
   }
 
-   private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.log('ATTENTION: ' + error); // log to console instead
      // Let the app keep running by returning an empty result.
@@ -113,6 +126,7 @@ export class StockService {
     this.errors.splice(0, this.errors.length);
   }
 }
+
 
 
 

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './services/in-memory-data.service';
 import {HttpClientModule} from '@angular/common/http';
-
+import { ChartsModule } from 'ng2-charts';
 import { AppComponent } from './app.component';
 import { WidgetListComponent } from './components/widget-list/widget-list.component';
 import { StockService } from './services/stock-service/stock.service';
@@ -23,7 +23,8 @@ import { StockDetailComponent } from './components/stock-detail/stock-detail.com
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartsModule
   ],
   providers: [StockService, ],
   bootstrap: [AppComponent]

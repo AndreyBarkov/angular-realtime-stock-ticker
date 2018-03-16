@@ -1,17 +1,25 @@
-<input #newWidget type="text" 
-        (keyup.enter) = "addWidget(newWidget.value); newWidget.value=''"
-         />
-<button class="addButton" (click)="addWidget(newWidget.value); newWidget.value=''">Add</button>
-<p *ngFor="let error of errors">{{error}}</p>
-
-<div class="widget-list">
-  <div class="widget" *ngFor="let widget of widgets">
-      <button class="remove" (click) = "removeWidget(widget);">x</button>
-    <p class="symbol">{{widget.symbol | uppercase}}</p>
-    <p class="currentPrice">${{widget.data.average}} </p>
-    <p class="time">real-time data as of {{widget.data.label}}</p>
-    <p class="miscData">High: {{widget.data.high}}</p>
-    <p class="miscData">Low: {{widget.data.low}}</p>
-    <button class="details" routerLink="/stock/{{widget.symbol}}">DETAILS</button>
+<h1>Welcome to real-time stock ticker dashboard</h1>
+<div class="widget-list-component">
+  <input #newWidget type="text" 
+          (keyup.enter) = "addWidget(newWidget.value); newWidget.value=''"
+          placeholder="symbol"/>
+  <button class="addButton" (click)="addWidget(newWidget.value); newWidget.value=''">Add</button>
+  <div class="errors">
+    <span *ngIf="errors.length > 0" class="clear-errors" (click)="this.clearErrors();">X</span>
+    <p *ngFor="let error of errors">{{error}}</p>
+  </div>
+  <div class="widget-list">
+    <div *ngFor="let widget of widgets">
+      <div class="widget" *ngIf="widget.data.date">
+        <button class="remove" (click) = "removeWidget(widget);">x</button>
+        <p class="symbol">{{widget.symbol | uppercase}}</p>
+        <p class="currentPrice">${{widget.data.average}} </p>
+        <p class="time">real-time data as of {{widget.data.label}}</p>
+        <p class="miscData">High: {{widget.data.high}}</p>
+        <p class="miscData">Low: {{widget.data.low}}</p>
+        <button class="details" routerLink="/stock/{{widget.symbol}}">DETAILS</button>
+      </div>
+      <img class = "loading" *ngIf="!widget.data.date" src="../../../assets/loadingIcon.gif"/>
+    </div>
   </div>
 </div>

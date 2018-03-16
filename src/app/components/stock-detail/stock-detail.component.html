@@ -1,28 +1,35 @@
-<div  *ngIf = "widget">
+<div  *ngIf = "widget && info">
+<h1>Details for {{info.companyName}}</h1>
+
   <div class="widget">
-    <div class="info col-md-3">
+    <div class="info">
       <ul>
         <li class="name">{{info.companyName}} ({{widget.symbol | uppercase}})</li>
         <li class="ceo">CEO: {{info.CEO}}</li>
-        <li class=""><a href="{{info.website}}" target="_blank">{{info.website}}</a></li>
+        <li><a href="{{info.website}}" target="_blank">{{info.website}}</a></li>
         <li class="description">{{info.description}}</li>
-        <li class="exchange">{{info.exchange}}:</li>
+        <li class="exchange">{{info.exchange}}</li>
         <li class="sector">Sector: {{info.sector}}</li>
+        <li>High: {{widget.data.high}}</li>
+        <li>Low: {{widget.data.low}}</li>
+        <li>Volume: {{widget.data.volume}}</li>
+        <li>Trades Today: {{widget.data.marketNumberOfTrades}}</li>
+        <li>Last Updated {{widget.data.label}}</li>
       </ul>
     </div>
-    <div class="graph">
-
-    </div>
-    <div class="trade-data">
-
-    </div>
+    <div class="graph" *ngIf="lineChartLabels.length > 0">
+          <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"></canvas>
+      </div>
   </div>
 </div>
+<button class="back" routerLink='/widgets'>BACK TO DASHBOARD</button>
 
 
 
 
-
-  <p>High price: {{widget.data.high}}</p>
-  <p>Last Updated {{widget.data.label}}</p>
-  <a routerLink='/widgets'>Back</a>

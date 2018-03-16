@@ -1,15 +1,17 @@
 .addButton {
     color:white;
-    background-color:green;
+    background-color:rgb(46, 211, 5);
+    box-shadow: 0px 0px 3px rgb(34, 158, 3);
     border-radius: 10px;
     font-size: 14pt;
     font-weight:bold;
     padding:10px 20px 10px 20px;
     cursor: pointer;
     outline:none;
+    border:none;
 
     &:hover{
-        background-color: rgb(7, 207, 7);
+        background-color: rgb(55, 219, 55);
     }
     &:active{
         background-color:darkgreen;
@@ -22,6 +24,12 @@ input {
     padding:10px 20px 10px 20px;
     font-weight:bold;
     outline:none;
+    border:none;
+    box-shadow: 0px 0px 5px black;
+    margin-right:10px;
+}
+.widget-list-component{
+    text-align:center;
 }
 .widget-list{
     display:flex;
@@ -30,14 +38,16 @@ input {
 }
 .widget{
     position:relative;
-    border: 1px solid;
     border-radius:10px;
+  /*  box-shadow: 5px 5px rgb(189, 194, 207); */
+  box-shadow: 0px 0px 10px rgb(152, 157, 168);
     background-color: rgb(220, 226, 241);
     width:280px;
     padding:0px 20px 30px 20px;
     margin:20px;
 }
 .symbol{
+    padding-top:20px;
     font-weight:bold;
     font-size: 15pt;
     text-align:left;
@@ -65,18 +75,64 @@ input {
 .details{
     border-radius: 10px;
     background-color:rgb(65, 165, 247);
+    box-shadow:0px 0px 2px rgb(23, 59, 88);
     color:white;
     padding:10px 15px;
     position:absolute;
     right:10%;
     bottom:12%;
+    outline:none;
+    border:none;
+    cursor: pointer;
+    font-weight: bold;
+    &:hover{
+        background-color:rgb(109, 187, 252);
+    }
 
 }
 .remove {
     position:absolute;
     top:2%;
     right:2%;
+    margin-right:5px;
+    margin-top: 2px;
     border-radius:20px;
+    border:none;
     background-color:rgb(248, 64, 64);
+    box-shadow: 0px 0px 3px rgb(119, 30, 30);
     outline:none;
+    cursor: pointer;
+}
+.loading{
+    position:relative;
+    left:140px;
+    top:100px;
+}
+.errors{
+    position: relative;
+    border-radius:10px;
+    background-color: rgb(253, 122, 122);
+    max-width: 300px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:30px;
+    box-shadow: 0px 0px 10px rgb(209, 99, 99) inset;
+    
+
+    p{
+        padding:30px 10px 30px 10px;
+        margin:0;
+    }
+    .clear-errors{
+        position: absolute;
+        font-weight:bold;
+        right:4%;
+        top:4%;
+        cursor: pointer;
+        border-radius:10px;
+
+        &:hover{
+            color: rgb(85, 85, 85);
+        }
+    }
 }

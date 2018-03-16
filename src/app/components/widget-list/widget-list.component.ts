@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Widget} from '../../models/widget';
 import {StockService} from '../../services/stock-service/stock.service';
 
+
 @Component({
   selector: 'app-widget-list',
   templateUrl: './widget-list.component.html',
@@ -16,9 +17,6 @@ export class WidgetListComponent implements OnInit {
 
   ngOnInit() {
     this.Initialize();
-    // setInterval( () => this.updateWidgets(), 1000);
-   // this.stockService.addNewWidget('aapl');
-    this.stockService.addNewWidget('tsla');
   }
   Initialize() {
     this.stockService.getWidgets().subscribe(widgets => this.widgets = widgets);

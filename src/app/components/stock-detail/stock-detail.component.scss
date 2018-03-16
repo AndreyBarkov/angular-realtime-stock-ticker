@@ -1,10 +1,23 @@
 .widget {
-    margin-left:10%;
-    border:1px solid;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    display: grid;
+   /* grid-template-areas:
+    'info info graph graph graph graph'
+    'info info graph graph graph graph'
+    'info info trade trade trade trade';*/
+    grid-template-areas:
+    'info graph'
+    'info trade';
+    width:893px;
+    
+    
 }
 .info {
+    grid-area: info;
     border-right: 1px solid;
-    max-width:400px;
+    max-width:300px;
     padding:20px;
 
     ul {
@@ -13,6 +26,7 @@
         padding-left:0;
     }
     li {
+      
        padding:10px;
         
     }
@@ -25,8 +39,46 @@
     }
     .description {
         border-top:1px solid;
-        border-bottom:1px solid;
-        
-        
+        border-bottom:1px solid;   
+    }
+    .exchange{
+        padding-top:20px;
+        padding-bottom:0;
+    }
+    .sector {
+       border-bottom: 1px solid;
+    }
+}
+.trade-data {
+    grid-area:trade;
+    border-top:1px solid;
+    width:593px;
+}
+.graph {
+    grid-area: graph;
+    
+    canvas{
+        margin-left:30px;
+        margin-bottom:30px;
+        width:539px !important;
+        height:539px !important;
+    }
+
+}
+.back{
+    border-radius: 10px;
+    background-color:rgb(65, 165, 247);
+    box-shadow:0px 0px 2px rgb(23, 59, 88);
+    border:none;
+    font-weight: bold;
+    color:white;
+    padding:10px 15px;
+    margin-bottom:20px;
+    margin-top:20px;
+    position:relative;
+    left:22%;
+    cursor: pointer;
+    &:hover{
+        background-color:rgb(109, 187, 252);
     }
 }
